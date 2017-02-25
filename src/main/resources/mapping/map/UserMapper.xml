@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sky.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="sky.pojo.User">
+        <constructor>
+            <idArg column="username" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="regis_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    username, password, regis_time
+  </sql>
+    <select id="queryAll" resultMap="BaseResultMap">
+    select * from users
+  </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from users
+        where username = #{username,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from users
+    where username = #{username,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="sky.pojo.User">
+    insert into users (username, password, regis_time
+      )
+    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{regisTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="sky.pojo.User">
+        insert into users
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username != null">
+                username,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="regisTime != null">
+                regis_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="regisTime != null">
+                #{regisTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="sky.pojo.User">
+        update users
+        <set>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="regisTime != null">
+                regis_time = #{regisTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where username = #{username,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="sky.pojo.User">
+    update users
+    set password = #{password,jdbcType=VARCHAR},
+      regis_time = #{regisTime,jdbcType=TIMESTAMP}
+    where username = #{username,jdbcType=VARCHAR}
+  </update>
+</mapper>
