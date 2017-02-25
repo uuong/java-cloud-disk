@@ -5,7 +5,7 @@ package sky.util;
  * User: krny
  * Date: 2017/2/24 0024
  * Time: 22:35
- * To change this template use File | Settings | File Templates.
+ * To change this template use FileMode | Settings | FileMode Templates.
  */
 public class TypeUtils {
     private static String[] list = {"image/jpeg", ""};

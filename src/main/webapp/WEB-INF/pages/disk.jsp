@@ -5,7 +5,7 @@
   User: Administrator
   Date: 2017/2/23 0023
   Time: 21:28
-  To change this template use File | Settings | File Templates.
+  To change this template use FileMode | Settings | FileMode Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -37,10 +37,10 @@
         </ol>
         <form action="/disk/up" method="post" enctype="multipart/form-data">
 
-            <input type="file" name="file"/><br/>
+            <input type="fileMode" name="fileMode"/><br/>
             <input type="submit"/>
         </form>
-        <div id="subViewDiv"></div>
+        <div id="disk_table"></div>
     </div>
 </div>
 </body>
@@ -54,7 +54,7 @@
             url: "/disk?type=" + url,
             success: function (response) {
 //                alert(response);
-                $("#subViewDiv").html(response);
+                $("#disk_table").html(response);
             }
         });
     }

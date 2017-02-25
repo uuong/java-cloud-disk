@@ -22,7 +22,7 @@ import java.util.List;
  * User: krny
  * Date: 2017/2/22 0022
  * Time: 23:23
- * To change this template use File | Settings | File Templates.
+ * To change this template use FileMode | Settings | FileMode Templates.
  */
 @Controller
 @RequestMapping("/user")
@@ -33,6 +33,11 @@ public class LoginAndRegis {
     @Autowired
     private UserManager userManager;
 
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String userLoginGet() {
+        return "login";
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String userLogin(User user, HttpServletRequest request, HttpServletResponse response) {
         if (loginAndRegist.userLogin(user)) {
@@ -42,11 +47,6 @@ public class LoginAndRegis {
             return "redirect:/user";
         }
         request.getSession().setAttribute("login", "帐号密码错误");
-        return "login";
-    }
-
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String userLoginGet() {
         return "login";
     }
 
@@ -83,10 +83,8 @@ public class LoginAndRegis {
             request.getSession().setAttribute(UserConst.USER_SESS, user.getUsername());
             response.addCookie(new Cookie(UserConst.USER_COOKIE, user.getUsername()));
             response.getWriter().write("success");
-//
         } else {
-            request.getSession().setAttribute("login", "帐号密码错误");
-            response.getWriter().write("null");
+            response.getWriter().write("帐号密码错误");
         }
     }
 }

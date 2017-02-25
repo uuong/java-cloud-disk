@@ -9,8 +9,6 @@
 <%@ include file="layout/nav.jsp" %>
 <h2>登录</h2>
 
-${login}
-
 <hr>
 
 <form action="/user/login" name="loginform" method="post" class="form-inline">

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sky.dao.FileModeMapper">
+    <resultMap id="BaseResultMap" type="sky.pojo.FileMode">
+        <constructor>
+
+            <arg column="userName" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="fileName" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="fileType" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="fileSize" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="filePath" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="uploadtime" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        </constructor>
+    </resultMap>
+
+    <select id="queryByType" parameterType="sky.pojo.FileMode" resultMap="BaseResultMap">
+        select * from fileModes
+        where fileType = #{fileType,jdbcType=VARCHAR}
+        AND userName = #{userName,jdbcType=VARCHAR}
+  </select>
+
+    <select id="queryAll" parameterType="sky.pojo.FileMode" resultMap="BaseResultMap">
+        select * from fileModes where userName = #{userName,jdbcType=VARCHAR}
+  </select>
+
+    <insert id="insert" parameterType="sky.pojo.FileMode">
+        insert into fileModes(userName,fileName,fileType,fileSize,filePath)
+        values(#{userName},#{fileName},#{fileType},#{fileSize},#{filePath})
+  </insert>
+
+</mapper>

@@ -1,11 +1,11 @@
 package sky._const;
 
 /**
- * Created with IntelliJ IDEA.
+ * 用户状态
  * User: krny
  * Date: 2017/2/23 0023
  * Time: 0:09
- * To change this template use File | Settings | File Templates.
+ * To change this template use FileMode | Settings | FileMode Templates.
  */
 public class UserConst {
     public static final String USER_SESS = "LOOK";

@@ -7,73 +7,78 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import sky._const.UserConst;
-import sky.pojo.File;
-import sky.service.inter.FileUpAndDown;
+import sky.pojo.FileMode;
+import sky.service.inter.UploadAndDown;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
+ * 文件上传下载.
  * User: krny
  * Date: 2017/2/24 0024
  * Time: 12:46
- * To change this template use File | Settings | File Templates.
+ * To change this template use FileMode | Settings | FileMode Templates.
  */
 @Controller
 @RequestMapping("/disk")
 public class FileContro {
     @Autowired
-    private FileUpAndDown fud;
+    private UploadAndDown fud;
 
+    /**
+     * 首屏直接显示全部文件
+     *
+     * @param request
+     * @param model
+     * @return
+     */
     @RequestMapping(method = RequestMethod.GET)
     public String show(HttpServletRequest request, Model model) {
-        File file = new File();
+        FileMode fileMode = new FileMode();
         String userName = (String) request.getSession().getAttribute(UserConst.USER_SESS);
-        file.setUserName(userName);
-        model.addAttribute("files", fud.queryAll(file));
+        fileMode.setUserName(userName);
+        model.addAttribute("fileModes", fud.queryAll(fileMode));
         return "disk";
     }
 
-    @RequestMapping(value = "up", method = RequestMethod.POST)
-    public String up(HttpServletRequest request, @RequestParam("file") MultipartFile multipartFile) {
+    @RequestMapping(method = RequestMethod.POST)
+    public ModelAndView queryByType(HttpServletRequest request, Model model, @RequestParam("type") String type) throws IOException {
+        FileMode fileMode = new FileMode();
         String userName = (String) request.getSession().getAttribute(UserConst.USER_SESS);
-        File file = new File();
+        fileMode.setUserName(userName);
+        fileMode.setFileType(type);
+
+        List<FileMode> fileModes;
+        if ("all".equals(type)) {
+            fileModes = fud.queryAll(fileMode);
+        } else {
+            fileModes = fud.queryByType(fileMode);
+        }
+        model.addAttribute("fileModes", fileModes);
+        return new ModelAndView("layout/disk-table");
+    }
+
+    @RequestMapping(value = "up", method = RequestMethod.POST)
+    public String upload(HttpServletRequest request, @RequestParam("file") MultipartFile multipartFile) {
+        String userName = (String) request.getSession().getAttribute(UserConst.USER_SESS);
+        //封装file
+        FileMode fileMode = new FileMode();
         String fileName = multipartFile.getOriginalFilename();
-        file.setUserName(userName);
-        file.setFileName(fileName);
-        file.setFileSize((multipartFile.getSize() / 1024) + "");
-        file.setFileType(multipartFile.getContentType());
+        fileMode.setUserName(userName);
+        fileMode.setFileName(fileName);
+        fileMode.setFileSize((multipartFile.getSize() / 1024) + "");
+        fileMode.setFileType(multipartFile.getContentType());
         String path = "e:/ddd/" + userName;
-        file.setFilePath(path);
-        int k = fud.insert(file, multipartFile);
+        fileMode.setFilePath(path);
+        int k = fud.insert(fileMode, multipartFile);
         System.out.println(k);
         return "redirect:/disk";
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    @ResponseBody
-    public ModelAndView queryByType(HttpServletRequest request, Model model, @RequestParam("type") String type) throws IOException {
-        File file = new File();
-        String userName = (String) request.getSession().getAttribute(UserConst.USER_SESS);
-        file.setUserName(userName);
-        file.setFileType(type);
 
-        List<File> files;
-        if ("all".equals(type)) {
-            files = fud.queryAll(file);
-        } else {
-            files = fud.queryByType(file);
-        }
-        model.addAttribute("files", files);
-//        Map<String, List<File>> modelMap = new HashMap<String, List<File>>();
-//        modelMap.put("files",files);
-//        return modelMap;
-        return new ModelAndView("showDisk");
-    }
 }

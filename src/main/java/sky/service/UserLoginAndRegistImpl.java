@@ -13,7 +13,7 @@ import sky.util.MD5Utils;
  * User: krny
  * Date: 2017/2/22 0022
  * Time: 22:26
- * To change this template use File | Settings | File Templates.
+ * To change this template use FileMode | Settings | FileMode Templates.
  */
 
 @Service

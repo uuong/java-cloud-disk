@@ -13,7 +13,7 @@ import java.util.List;
  * User: krny
  * Date: 2017/2/23 0023
  * Time: 19:12
- * To change this template use File | Settings | File Templates.
+ * To change this template use FileMode | Settings | FileMode Templates.
  */
 @Service
 public class UserManagerImpl implements UserManager {

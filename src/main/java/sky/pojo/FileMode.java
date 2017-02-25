@@ -7,9 +7,9 @@ import java.util.Date;
  * User: krny
  * Date: 2017/2/24 0024
  * Time: 12:01
- * To change this template use File | Settings | File Templates.
+ * To change this template use FileMode | Settings | FileMode Templates.
  */
-public class File {
+public class FileMode {
 
     private String userName;
     private String fileName;
@@ -18,11 +18,11 @@ public class File {
     private String filePath;
     private Date uploadTime;
 
-    public File() {
+    public FileMode() {
     }
 
 
-    public File(String userName, String fileName, String fileType, String fileSize, String filePath, Date uploadTime) {
+    public FileMode(String userName, String fileName, String fileType, String fileSize, String filePath, Date uploadTime) {
         this.userName = userName;
         this.fileName = fileName;
         this.fileType = fileType;

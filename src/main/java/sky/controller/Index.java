@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * User: krny
  * Date: 2017/2/22 0022
  * Time: 20:55
- * To change this template use File | Settings | File Templates.
+ * To change this template use FileMode | Settings | FileMode Templates.
  */
 @Controller
 public class Index {

@@ -10,7 +10,7 @@ import java.security.NoSuchAlgorithmException;
  * User: krny
  * Date: 2017/2/22 0022
  * Time: 23:08
- * To change this template use File | Settings | File Templates.
+ * To change this template use FileMode | Settings | FileMode Templates.
  */
 public class MD5Utils {
     public static String encoder(String message) {

@@ -15,17 +15,17 @@
     <!--指明 controller 所在包，并扫描其中的注解-->
     <context:component-scan base-package="sky"/>
 
-    <import resource="applicationContext.xml"/>
     <!-- 静态资源(js、image等)的访问 -->
     <mvc:default-servlet-handler/>
 
     <!-- 开启注解 -->
     <mvc:annotation-driven/>
+
     <!--<aop:aspectj-autoproxy/>-->
 
     <mvc:interceptors>
         <mvc:interceptor>
-            <!--拦截以localhost:8080/student/开头的URL请求，包括localhost:8080/student/dashboard和localhost:8080/student/dashboard/detail类型-->
+            <!--拦截以开头的URL请求-->
             <mvc:mapping path="/user/**"/>
             <mvc:mapping path="/disk/**"/>
             <!--排除在拦截名单外的URL请求-->
@@ -35,7 +35,7 @@
             <mvc:exclude-mapping path="/user/login/**"/>
             <!--下面的是一些资源文件，比如图片、CSS文件、JS文件等-->
             <mvc:exclude-mapping path="/temp/**"/>
-            <!--当有URL被拦截后，调用下面这个拦截器StudentSessionInterceptor来处理，StudentSessionInterceptor决定了是放行还是拦截-->
+            <!--当有URL被拦截后，调用下面这个拦截器来处理，决定了是放行还是拦截-->
             <bean class="sky.controller.interceptor.SessionInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
