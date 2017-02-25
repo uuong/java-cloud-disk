@@ -15,7 +15,6 @@
     <input type="text" name="username" class="form-control" placeholder="用户名">
     <input type="password" name="password" class="form-control" placeholder="密码">
     <button type="submit" class="btn btn-default">登录</button>
-    <input type="button" value="ajaxLogin" onclick="login();">
 </form>
 
 

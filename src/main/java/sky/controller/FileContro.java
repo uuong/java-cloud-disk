@@ -11,10 +11,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import sky._const.UserConst;
 import sky.pojo.FileMode;
+import sky.pojo.User;
 import sky.service.inter.UploadAndDown;
+import sky.util.TypeUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLEncoder;
 import java.util.List;
 
 /**
@@ -30,55 +34,73 @@ public class FileContro {
     @Autowired
     private UploadAndDown fud;
 
-    /**
-     * 首屏直接显示全部文件
-     *
-     * @param request
-     * @param model
-     * @return
-     */
     @RequestMapping(method = RequestMethod.GET)
-    public String show(HttpServletRequest request, Model model) {
-        FileMode fileMode = new FileMode();
-        String userName = (String) request.getSession().getAttribute(UserConst.USER_SESS);
-        fileMode.setUserName(userName);
-        model.addAttribute("fileModes", fud.queryAll(fileMode));
-        return "disk";
-    }
-
-    @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView queryByType(HttpServletRequest request, Model model, @RequestParam("type") String type) throws IOException {
-        FileMode fileMode = new FileMode();
-        String userName = (String) request.getSession().getAttribute(UserConst.USER_SESS);
-        fileMode.setUserName(userName);
-        fileMode.setFileType(type);
+    public ModelAndView queryByType(HttpServletRequest request, Model model) throws IOException {
 
         List<FileMode> fileModes;
-        if ("all".equals(type)) {
+        FileMode fileMode = new FileMode();
+        User user = (User) request.getSession().getAttribute(UserConst.USER_SESSION);
+
+        fileMode.setUserName(user.getUsername());
+        //第一次查询不使用ajax
+        //todo 整和query，querybytype
+        String type = request.getParameter("type");
+        if (type == null) {
             fileModes = fud.queryAll(fileMode);
-        } else {
-            fileModes = fud.queryByType(fileMode);
+            model.addAttribute("fileModes", fileModes);
+            return new ModelAndView("disk");
         }
+
+        fileMode.setFileType(type);
+        fileModes = fud.queryByType(fileMode);
         model.addAttribute("fileModes", fileModes);
         return new ModelAndView("layout/disk-table");
     }
 
     @RequestMapping(value = "up", method = RequestMethod.POST)
     public String upload(HttpServletRequest request, @RequestParam("file") MultipartFile multipartFile) {
-        String userName = (String) request.getSession().getAttribute(UserConst.USER_SESS);
+
+        User user = (User) request.getSession().getAttribute(UserConst.USER_SESSION);
+        //
+        String fileName = multipartFile.getOriginalFilename();
+        String fileType = TypeUtils.typ(multipartFile.getContentType());
+        String path = "e:/ddd/" + user.getUsername();
         //封装file
         FileMode fileMode = new FileMode();
-        String fileName = multipartFile.getOriginalFilename();
-        fileMode.setUserName(userName);
+        fileMode.setUserName(user.getUsername());
         fileMode.setFileName(fileName);
         fileMode.setFileSize((multipartFile.getSize() / 1024) + "");
-        fileMode.setFileType(multipartFile.getContentType());
-        String path = "e:/ddd/" + userName;
+        fileMode.setFileType(fileType);
         fileMode.setFilePath(path);
+
         int k = fud.insert(fileMode, multipartFile);
-        System.out.println(k);
         return "redirect:/disk";
     }
 
+    /**
+     * 用session中的User验证是否有文件
+     */
+    @RequestMapping(value = "down")
+    public void download(HttpServletRequest request, HttpServletResponse response, @RequestParam("name") String name) throws IOException {
+        User user = (User) request.getSession().getAttribute(UserConst.USER_SESSION);
+        OutputStream out = response.getOutputStream();
+        response.setContentType("text/html;charset=UTF-8");
+        File file = new File("e:/ddd/" + user.getUsername() + "/" + name);
+        if (!(file.exists())) {
+            //todo 返回错误消息
+            return;
+        }
+        InputStream in = new FileInputStream(file);
+        response.setHeader("Content-Disposition", "attachment;filename="
+                + URLEncoder.encode(name, "UTF-8"));
+//        response.setHeader("Content-Disposition", "attachment;filename="
+//                + URLEncoder.encode(fileMode.getFileName(),"UTF-8"));
+        byte b[] = new byte[1024];
+        int len;
+        while ((len = in.read(b)) != -1) {
+            out.write(b, 0, len);
+        }
+        in.close();
+    }
 
 }

@@ -1,5 +1,7 @@
 package sky.util;
 
+import java.util.*;
+
 /**
  * Created with IntelliJ IDEA.
  * User: krny
@@ -8,14 +10,23 @@ package sky.util;
  * To change this template use FileMode | Settings | FileMode Templates.
  */
 public class TypeUtils {
-    private static String[] list = {"image/jpeg", ""};
 
-    public static String t(String type) {
-        for (String s : list) {
-            if (s.equals(type)) {
-                return s;
+    private static Map<String, HashSet<String>> suffix = new HashMap<String, HashSet<String>>() {{
+        put("text", new HashSet<String>(Arrays.asList("doc", "pdf", "txt", "rm")));
+        put("music", new HashSet<String>(Arrays.asList("ape", "mp3", "wma")));
+        put("video", new HashSet<String>(Arrays.asList("3gp", "avi", "mp4", "mpeg", "rmvb")));
+        put("image", new HashSet<String>(Arrays.asList("bmp", "gif", "jpeg", "jpg", "png", "webp")));
+    }};
+
+    public static String typ(String type) {
+        int i = type.lastIndexOf(".");
+        String postfix = type.substring(i + 1);
+        for (Map.Entry<String, HashSet<String>> entry : suffix.entrySet()) {
+            if (entry.getValue().contains(postfix)) {
+                return entry.getKey();
             }
+
         }
-        return "未知";
+        return "none";
     }
 }

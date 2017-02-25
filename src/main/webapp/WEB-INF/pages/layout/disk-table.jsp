@@ -13,14 +13,14 @@
         <th width="150">文件名</th>
         <th width="150">大小</th>
         <th width="150">类型</th>
-        <th width="150">位置</th>
+        <th width="150">下载</th>
     </tr>
     <c:forEach items="${fileModes}" var="fileMode">
         <tr>
             <td>${fileMode.fileName}</td>
             <td>${fileMode.fileSize} Kb</td>
             <td>${fileMode.fileType}</td>
-            <td>${fileMode.filePath}</td>
+            <td><a href="/disk/down?name=${fileMode.fileName}">下载</a></td>
         </tr>
     </c:forEach>
 </table>

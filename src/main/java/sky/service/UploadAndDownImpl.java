@@ -31,7 +31,9 @@ public class UploadAndDownImpl implements UploadAndDown {
     }
 
     public List<FileMode> queryByType(FileMode fileMode) {
-
+        if ("our".equals(fileMode.getFileType())) {
+            return fileModeMapper.queryAll(fileMode);
+        }
         return fileModeMapper.queryByType(fileMode);
     }
 

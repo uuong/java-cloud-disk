@@ -8,6 +8,6 @@ package sky._const;
  * To change this template use FileMode | Settings | FileMode Templates.
  */
 public class UserConst {
-    public static final String USER_SESS = "LOOK";
+    public static final String USER_SESSION = "SESSION";
     public static final String USER_COOKIE = "COOKIE";
 }

@@ -8,24 +8,29 @@
 <body>
 <%@ include file="layout/nav.jsp" %>
 <h2>用户管理</h2>
+${message}111111111111
+<c:if test="${message != null} ">
+    <h1>对不起，您的云空空如也!</h1>
+</c:if>
 
-
-<table class="table table-striped  table-hover">
-
-    <tr>
-        <th width="150">user</th>
-        <th width="350">pass</th>
-        <th width="150">time</th>
-        <th width="150">dai</th>
-    </tr>
-    <c:forEach items="${users}" var="user">
+<c:if test="${message == null} ">
+    <table class="table table-striped  table-hover">
         <tr>
-            <td>${user.username}</td>
-            <td>${user.password}</td>
-            <td>${user.regisTime}</td>
-            <td>2</td>
+            <th width="150">user</th>
+            <th width="350">pass</th>
+            <th width="150">time</th>
+            <th width="150">dai</th>
         </tr>
-    </c:forEach>
-</table>
+        <c:forEach items="${users}" var="user">
+            <tr>
+                <td>${user.username}</td>
+                <td>${user.password}</td>
+                <td>${user.regisTime}</td>
+                <td>2</td>
+            </tr>
+        </c:forEach>
+    </table>
+</c:if>
+
 </body>
 </html>

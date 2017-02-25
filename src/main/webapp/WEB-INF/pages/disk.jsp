@@ -18,18 +18,19 @@
 
 <div class="row">
 
-    <div class="col-md-1">
+    <div class="col-md-2">
         <div class="btn-group-vertical" role="group">
             <ul>
-                <button onclick="doAjax(alll)">全部文件</button>
-                <button onclick="doAjax(txt)">文档</button>
-                <button>视频</button>
-                <button>音乐</button>
-                <button onclick="doAjax(im)">图片</button>
+                <button onclick="doAjax('our')">全部文件</button>
+                <button onclick="doAjax('text')">文档</button>
+                <button onclick="doAjax('video')">视频</button>
+                <button onclick="doAjax('music')">音乐</button>
+                <button onclick="doAjax('image')">图片</button>
+                <button onclick="doAjax('none')">其他</button>
             </ul>
         </div>
     </div>
-    <div class="col-md-10">
+    <div class="col-md-9">
         <ol class="breadcrumb">
             <li><a href="#">Home</a></li>
             <li><a href="#">Library</a></li>
@@ -37,23 +38,27 @@
         </ol>
         <form action="/disk/up" method="post" enctype="multipart/form-data">
 
-            <input type="fileMode" name="fileMode"/><br/>
+            <input type="file" name="file"/><br/>
             <input type="submit"/>
         </form>
-        <div id="disk_table"></div>
+
+
+        <div id="disk_table">
+            <%@include file="layout/disk-table.jsp" %>
+        </div>
     </div>
 </div>
 </body>
 <script type="text/javascript">
     var im = "image/jpeg";
     var txt = "text/plain";
-    var alll = "all";
     function doAjax(url) {
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: "/disk?type=" + url,
             success: function (response) {
 //                alert(response);
+
                 $("#disk_table").html(response);
             }
         });
