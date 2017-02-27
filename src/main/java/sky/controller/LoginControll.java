@@ -1,7 +1,9 @@
 package sky.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,9 +49,9 @@ public class LoginControll {
             //回调地址
             String callback = (String) session.getAttribute("callback");
             session.removeAttribute("callback");
-            System.out.println(callback);
-// TODO: 2017/2/27 0027 可能会有问题
-            return "redirect:/user";
+
+
+            return "redirect:" + callback;
         }
         request.getSession().setAttribute("message", "error");
         return "login";
@@ -71,10 +73,11 @@ public class LoginControll {
     }
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public String register(User user, HttpServletRequest request, HttpServletResponse response) {
+    public String register(User user, Model model) {
         try {
             loginAndRegist.addUser(user);
         } catch (UserNameExistException e) {
+            model.addAttribute("login", "用户名重复");
             return "login";
         }
         return "index";

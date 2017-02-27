@@ -20,7 +20,7 @@
 <body>
 <%@ include file="./layout/nav.jsp" %>
 <h2>Hello World!</h2>
-<a href="uuuu">ssssss</a>
+
 
 <c:if test="${SESSION == null}">
     <div id="logintable">

@@ -31,13 +31,4 @@ public class TypeUtils {
         return "none";
     }
 
-    public static String doDir(String dir) {
-        File file = new File(dir);
-        if (file.isDirectory()) {
-
-            return doDir(file.getPath());
-        }
-        System.out.println(file);
-        return file.getName();
-    }
 }

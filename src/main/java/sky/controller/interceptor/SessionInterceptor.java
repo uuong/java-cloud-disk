@@ -40,25 +40,25 @@ public class SessionInterceptor implements HandlerInterceptor {
         if (sessionUser != null) {
             return true;
         }
-
+        String context = request.getContextPath();
+        String URI = request.getRequestURI();
+        String url = URI.substring(context.length());
+        session.setAttribute("callback", url);
         // TODO: 2017/2/27 0027 以后精简一下 
         String cookie = CookieUtils.getCookie(request, "remember");
         if (cookie == null) {
-            session.setAttribute("callback", request.getRequestURL().toString());
             response.sendRedirect("user/login");
             return false;
         }
 
         String[] cookies = cookie.split(":");
         if (cookies.length != 2) {
-            session.setAttribute("callback", request.getRequestURL().toString());
             response.sendRedirect("user/login");
             return false;
         }
 
         User dataUser = userMapper.selectByPrimaryKey(cookies[1]);
         if (dataUser == null || dataUser.getToken() == null || "no".equals(dataUser.getToken())) {
-            session.setAttribute("callback", request.getRequestURL().toString());
             response.sendRedirect("user/login");
             return false;
         }
@@ -77,7 +77,6 @@ public class SessionInterceptor implements HandlerInterceptor {
             session.setAttribute(UserConst.USER_SESSION, dataUser);
             return true;
         }
-        session.setAttribute("callback", request.getRequestURL().toString());
         response.sendRedirect("user/login");
         return false;
     }

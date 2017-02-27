@@ -34,7 +34,7 @@ public class FileControll {
     @Autowired
     private UploadAndDown fud;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.POST)
     public ModelAndView queryByType(HttpServletRequest request, Model model) throws IOException {
 
         List<FileMode> fileModes;

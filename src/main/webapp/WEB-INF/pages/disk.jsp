@@ -55,11 +55,10 @@
 </div>
 </body>
 <script type="text/javascript">
-    var im = "image/jpeg";
-    var txt = "text/plain";
+
     function doAjax(url) {
         $.ajax({
-            type: "GET",
+            type: "POST",
             url: "disk?type=" + url,
             success: function (response) {
 //                alert(response);
