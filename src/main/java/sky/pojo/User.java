@@ -9,15 +9,13 @@ public class User {
 
     private Date regisTime;
 
-    public User(String username, String password, Date regisTime) {
+    private String token;
+
+    public User(String username, String password, Date regisTime, String token) {
         this.username = username;
         this.password = password;
         this.regisTime = regisTime;
-    }
-
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
+        this.token = token;
     }
 
     public User() {
@@ -46,5 +44,23 @@ public class User {
 
     public void setRegisTime(Date regisTime) {
         this.regisTime = regisTime;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token == null ? null : token.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", regisTime=" + regisTime +
+                ", token='" + token + '\'' +
+                '}';
     }
 }

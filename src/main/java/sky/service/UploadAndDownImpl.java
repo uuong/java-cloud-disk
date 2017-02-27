@@ -31,7 +31,7 @@ public class UploadAndDownImpl implements UploadAndDown {
     }
 
     public List<FileMode> queryByType(FileMode fileMode) {
-        if ("our".equals(fileMode.getFileType())) {
+        if ("our".equals(fileMode.getFiletype())) {
             return fileModeMapper.queryAll(fileMode);
         }
         return fileModeMapper.queryByType(fileMode);
@@ -40,12 +40,12 @@ public class UploadAndDownImpl implements UploadAndDown {
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public int insert(FileMode fileMode, MultipartFile multipartFile) {
         //        目录测试
-        java.io.File f = new java.io.File(fileMode.getFilePath());
+        java.io.File f = new java.io.File(fileMode.getFilepath());
         if (!f.exists()) {
             f.mkdirs();
         }
         try {
-            File fi = new File(fileMode.getFilePath() + "/" + fileMode.getFileName());
+            File fi = new File(fileMode.getFilepath() + "/" + fileMode.getFilename());
             multipartFile.transferTo(fi);
         } catch (IOException e) {
             e.printStackTrace();

@@ -3,29 +3,74 @@
 <mapper namespace="sky.dao.FileModeMapper">
     <resultMap id="BaseResultMap" type="sky.pojo.FileMode">
         <constructor>
-
-            <arg column="userName" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="fileName" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="fileType" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="fileSize" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="filePath" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="username" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="filename" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="filetype" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="filesize" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="filepath" javaType="java.lang.String" jdbcType="VARCHAR"/>
             <arg column="uploadtime" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
         </constructor>
     </resultMap>
 
     <select id="queryByType" parameterType="sky.pojo.FileMode" resultMap="BaseResultMap">
-        select * from fileModes
-        where fileType = #{fileType,jdbcType=VARCHAR}
-        AND userName = #{userName,jdbcType=VARCHAR}
+        select * from filemodes
+        where fileType = #{filetype,jdbcType=VARCHAR}
+        AND username = #{username,jdbcType=VARCHAR}
   </select>
 
     <select id="queryAll" parameterType="sky.pojo.FileMode" resultMap="BaseResultMap">
-        select * from fileModes where userName = #{userName,jdbcType=VARCHAR}
+        select * from filemodes where username = #{username,jdbcType=VARCHAR}
   </select>
 
     <insert id="insert" parameterType="sky.pojo.FileMode">
-        insert into fileModes(userName,fileName,fileType,fileSize,filePath)
-        values(#{userName},#{fileName},#{fileType},#{fileSize},#{filePath})
+        insert into filemodes
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="username != null">
+                username,
+            </if>
+            <if test="filename != null">
+                filename,
+            </if>
+            <if test="filetype != null">
+                filetype,
+            </if>
+            <if test="filesize != null">
+                filesize,
+            </if>
+            <if test="filepath != null">
+                filepath,
+            </if>
+            <if test="uploadtime != null">
+                uploadtime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="filename != null">
+                #{filename,jdbcType=VARCHAR},
+            </if>
+            <if test="filetype != null">
+                #{filetype,jdbcType=VARCHAR},
+            </if>
+            <if test="filesize != null">
+                #{filesize,jdbcType=VARCHAR},
+            </if>
+            <if test="filepath != null">
+                #{filepath,jdbcType=VARCHAR},
+            </if>
+            <if test="uploadtime != null">
+                #{uploadtime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
   </insert>
 
 </mapper>

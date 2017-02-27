@@ -17,10 +17,10 @@
     </tr>
     <c:forEach items="${fileModes}" var="fileMode">
         <tr>
-            <td>${fileMode.fileName}</td>
-            <td>${fileMode.fileSize} Kb</td>
-            <td>${fileMode.fileType}</td>
-            <td><a href="/disk/down?name=${fileMode.fileName}">下载</a></td>
+            <td>${fileMode.filename}</td>
+            <td>${fileMode.filesize} Kb</td>
+            <td>${fileMode.filetype}</td>
+            <td><a href="disk/down?name=${fileMode.filename}">下载</a></td>
         </tr>
     </c:forEach>
 </table>

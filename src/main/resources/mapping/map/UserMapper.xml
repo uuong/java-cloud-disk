@@ -6,20 +6,50 @@
             <idArg column="username" javaType="java.lang.String" jdbcType="VARCHAR"/>
             <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR"/>
             <arg column="regis_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+            <arg column="token" javaType="java.lang.String" jdbcType="VARCHAR"/>
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
-    username, password, regis_time
+        username, password, regis_time, token
   </sql>
+
+
     <select id="queryAll" resultMap="BaseResultMap">
     select * from users
-  </select>
+    </select>
+
+    <select id="login" parameterType="sky.pojo.User" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from users
+        where username = #{username,jdbcType=VARCHAR}
+        and password = #{password,jdbcType=VARCHAR}
+    </select>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from users
         where username = #{username,jdbcType=VARCHAR}
     </select>
+
+    <update id="updateByPrimaryKeySelective" parameterType="sky.pojo.User">
+        update users
+        <set>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="regisTime != null">
+                regis_time = #{regisTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="token != null">
+                token = #{token,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where username = #{username,jdbcType=VARCHAR}
+    </update>
+
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from users
     where username = #{username,jdbcType=VARCHAR}
@@ -55,22 +85,4 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="sky.pojo.User">
-        update users
-        <set>
-            <if test="password != null">
-                password = #{password,jdbcType=VARCHAR},
-            </if>
-            <if test="regisTime != null">
-                regis_time = #{regisTime,jdbcType=TIMESTAMP},
-            </if>
-        </set>
-        where username = #{username,jdbcType=VARCHAR}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="sky.pojo.User">
-    update users
-    set password = #{password,jdbcType=VARCHAR},
-      regis_time = #{regisTime,jdbcType=TIMESTAMP}
-    where username = #{username,jdbcType=VARCHAR}
-  </update>
 </mapper>

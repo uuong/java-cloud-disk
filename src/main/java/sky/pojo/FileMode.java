@@ -2,80 +2,88 @@ package sky.pojo;
 
 import java.util.Date;
 
-/**
- * Created with IntelliJ IDEA.
- * User: krny
- * Date: 2017/2/24 0024
- * Time: 12:01
- * To change this template use FileMode | Settings | FileMode Templates.
- */
 public class FileMode {
+    private Integer id;
 
-    private String userName;
-    private String fileName;
-    private String fileType;
-    private String fileSize;
-    private String filePath;
-    private Date uploadTime;
+    private String username;
+
+    private String filename;
+
+    private String filetype;
+
+    private String filesize;
+
+    private String filepath;
+
+    private Date uploadtime;
+
+    public FileMode(Integer id, String username, String filename, String filetype, String filesize, String filepath, Date uploadtime) {
+        this.id = id;
+        this.username = username;
+        this.filename = filename;
+        this.filetype = filetype;
+        this.filesize = filesize;
+        this.filepath = filepath;
+        this.uploadtime = uploadtime;
+    }
 
     public FileMode() {
+        super();
     }
 
-
-    public FileMode(String userName, String fileName, String fileType, String fileSize, String filePath, Date uploadTime) {
-        this.userName = userName;
-        this.fileName = fileName;
-        this.fileType = fileType;
-        this.fileSize = fileSize;
-        this.filePath = filePath;
-        this.uploadTime = uploadTime;
+    public Integer getId() {
+        return id;
     }
 
-    public String getUserName() {
-        return userName;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public String getUsername() {
+        return username;
     }
 
-    public String getFileName() {
-        return fileName;
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public String getFilename() {
+        return filename;
     }
 
-    public String getFileType() {
-        return fileType;
+    public void setFilename(String filename) {
+        this.filename = filename == null ? null : filename.trim();
     }
 
-    public void setFileType(String fileType) {
-        this.fileType = fileType;
+    public String getFiletype() {
+        return filetype;
     }
 
-    public String getFileSize() {
-        return fileSize;
+    public void setFiletype(String filetype) {
+        this.filetype = filetype == null ? null : filetype.trim();
     }
 
-    public void setFileSize(String fileSize) {
-        this.fileSize = fileSize;
+    public String getFilesize() {
+        return filesize;
     }
 
-    public String getFilePath() {
-        return filePath;
+    public void setFilesize(String filesize) {
+        this.filesize = filesize == null ? null : filesize.trim();
     }
 
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
+    public String getFilepath() {
+        return filepath;
     }
 
-    public Date getUploadTime() {
-        return uploadTime;
+    public void setFilepath(String filepath) {
+        this.filepath = filepath == null ? null : filepath.trim();
     }
 
-    public void setUploadTime(Date uploadTime) {
-        this.uploadTime = uploadTime;
+    public Date getUploadtime() {
+        return uploadtime;
+    }
+
+    public void setUploadtime(Date uploadtime) {
+        this.uploadtime = uploadtime;
     }
 }

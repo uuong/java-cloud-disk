@@ -29,7 +29,7 @@ import java.util.List;
  * To change this template use FileMode | Settings | FileMode Templates.
  */
 @Controller
-@RequestMapping("/disk")
+@RequestMapping("disk")
 public class FileContro {
     @Autowired
     private UploadAndDown fud;
@@ -41,7 +41,7 @@ public class FileContro {
         FileMode fileMode = new FileMode();
         User user = (User) request.getSession().getAttribute(UserConst.USER_SESSION);
 
-        fileMode.setUserName(user.getUsername());
+        fileMode.setUsername(user.getUsername());
         //第一次查询不使用ajax
         //todo 整和query，querybytype
         String type = request.getParameter("type");
@@ -51,7 +51,7 @@ public class FileContro {
             return new ModelAndView("disk");
         }
 
-        fileMode.setFileType(type);
+        fileMode.setFiletype(type);
         fileModes = fud.queryByType(fileMode);
         model.addAttribute("fileModes", fileModes);
         return new ModelAndView("layout/disk-table");
@@ -62,19 +62,19 @@ public class FileContro {
 
         User user = (User) request.getSession().getAttribute(UserConst.USER_SESSION);
         //
-        String fileName = multipartFile.getOriginalFilename();
+        String filename = multipartFile.getOriginalFilename();
         String fileType = TypeUtils.typ(multipartFile.getContentType());
         String path = "e:/ddd/" + user.getUsername();
         //封装file
         FileMode fileMode = new FileMode();
-        fileMode.setUserName(user.getUsername());
-        fileMode.setFileName(fileName);
-        fileMode.setFileSize((multipartFile.getSize() / 1024) + "");
-        fileMode.setFileType(fileType);
-        fileMode.setFilePath(path);
+        fileMode.setUsername(user.getUsername());
+        fileMode.setFilename(filename);
+        fileMode.setFilesize((multipartFile.getSize() / 1024) + "");
+        fileMode.setFiletype(fileType);
+        fileMode.setFilepath(path);
 
         int k = fud.insert(fileMode, multipartFile);
-        return "redirect:/disk";
+        return "redirect:disk";
     }
 
     /**

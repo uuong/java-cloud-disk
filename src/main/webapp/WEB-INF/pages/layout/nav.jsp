@@ -10,14 +10,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">首页</a>
+            <a class="navbar-brand" href="">首页</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/disk">网盘 <span class="sr-only">(current)</span></a></li>
-                <li><a href="/user">用户管理</a></li>
+                <li class="active"><a href="disk">网盘 <span class="sr-only">(current)</span></a></li>
+                <li><a href="user">用户管理</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -39,7 +39,11 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/user/logout">退出</a></li>
+                <c:if test="${sessionScope.SESSION != null}">
+                    <li><a href="user/logout">退出</a></li>
+                </c:if>
+
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Dropdown <span class="caret"></span></a>

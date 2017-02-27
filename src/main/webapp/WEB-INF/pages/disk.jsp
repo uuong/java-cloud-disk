@@ -1,5 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":"
+            + request.getServerPort() + request.getContextPath() + "/";
+%>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -10,6 +14,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <base href="<%=basePath%>">
     <%@ include file="layout/css.jsp" %>
     <%@ include file="layout/js.jsp" %>
 </head>
@@ -36,7 +41,7 @@
             <li><a href="#">Library</a></li>
             <li class="active">Data</li>
         </ol>
-        <form action="/disk/up" method="post" enctype="multipart/form-data">
+        <form action="disk/up" method="post" enctype="multipart/form-data">
 
             <input type="file" name="file"/><br/>
             <input type="submit"/>
@@ -55,7 +60,7 @@
     function doAjax(url) {
         $.ajax({
             type: "GET",
-            url: "/disk?type=" + url,
+            url: "disk?type=" + url,
             success: function (response) {
 //                alert(response);
 
