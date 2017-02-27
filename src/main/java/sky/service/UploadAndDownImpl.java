@@ -37,7 +37,7 @@ public class UploadAndDownImpl implements UploadAndDown {
         return fileModeMapper.queryByType(fileMode);
     }
 
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    @Transactional(propagation = Propagation.REQUIRED)
     public int insert(FileMode fileMode, MultipartFile multipartFile) {
         //        目录测试
         java.io.File f = new java.io.File(fileMode.getFilepath());

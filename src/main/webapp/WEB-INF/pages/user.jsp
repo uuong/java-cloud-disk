@@ -13,11 +13,10 @@
 <body>
 <%@ include file="layout/nav.jsp" %>
 <h2>用户管理</h2>
+<a href="user/change-pass">修改密码</a>
 
-<c:if test="${message != null}">
-    <h1>${message}</h1>
-</c:if>
-<c:if test="${ message == null}">
+
+<c:if test="${ users != null}">
     <table class="table table-striped  table-hover">
         <tr>
             <th width="150">user</th>

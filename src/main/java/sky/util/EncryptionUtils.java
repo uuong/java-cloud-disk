@@ -1,6 +1,7 @@
 package sky.util;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import sky.pojo.User;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -13,6 +14,24 @@ import java.security.NoSuchAlgorithmException;
  * To change this template use File | Settings | File Templates.
  */
 public class EncryptionUtils {
+
+    public static User parseUser(User user) {
+        String pass = user.getPassword();
+        user.setPassword(sha256Hex(pass));
+        return user;
+    }
+
+    public static User parseUser(User user, String password) {
+        user.setPassword(sha256Hex(password));
+        return user;
+    }
+
+    public static User parseUser(String username, String password) {
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(sha256Hex(password));
+        return user;
+    }
     public static String sha256Hex(String data) {
         return DigestUtils.sha256Hex(data);
     }

@@ -7,13 +7,13 @@ package sky.exception;
  * Time: 22:56
  * To change this template use FileMode | Settings | FileMode Templates.
  */
-public class UsernnameExistException extends Exception {
+public class UserNameExistException extends Exception {
     /**
      * Constructs a new exception with {@code null} as its detail message.
      * The cause is not initialized, and may subsequently be initialized by a
      * call to {@link #initCause}.
      */
-    public UsernnameExistException() {
+    public UserNameExistException() {
     }
 
     /**
@@ -24,7 +24,7 @@ public class UsernnameExistException extends Exception {
      * @param message the detail message. The detail message is saved for
      *                later retrieval by the {@link #getMessage()} method.
      */
-    public UsernnameExistException(String message) {
+    public UserNameExistException(String message) {
         super(message);
     }
 }

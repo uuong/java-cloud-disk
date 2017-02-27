@@ -1,6 +1,6 @@
 package sky.service.inter;
 
-import sky.exception.UsernnameExistException;
+import sky.exception.UserNameExistException;
 import sky.pojo.User;
 
 import javax.servlet.http.HttpServletResponse;
@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletResponse;
  * Time: 22:19
  * To change this template use FileMode | Settings | FileMode Templates.
  */
-public interface UserLoginAndRegist {
-    void addUser(User user) throws UsernnameExistException;
+public interface LoginAndRegist {
+    void addUser(User user) throws UserNameExistException;
 
     boolean userLogin(User user, Boolean rememberme, HttpServletResponse response);
+
+    void logout(User user);
 }

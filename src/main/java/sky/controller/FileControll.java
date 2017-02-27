@@ -30,7 +30,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("disk")
-public class FileContro {
+public class FileControll {
     @Autowired
     private UploadAndDown fud;
 

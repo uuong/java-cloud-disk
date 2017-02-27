@@ -10,7 +10,7 @@ function login() {
             data: {username: $("#name").val(), password: $("#pass").val(), remember: reme}, //参数
             success: function (msg) {
                 if (msg == 'success') {
-                    $(".lo").hide();
+                    $(".logintable").hide();
                 } else {
                     $("#div_uname_err_info").show();
                     $("#div_uname_err_info").html("帐号或者密码错误");

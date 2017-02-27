@@ -4,18 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import sky.dao.UserMapper;
-import sky.exception.UsernnameExistException;
+import sky.exception.UserNameExistException;
 import sky.pojo.User;
-import sky.service.inter.UserLoginAndRegist;
+import sky.service.inter.LoginAndRegist;
 import sky.util.CookieUtils;
 import sky.util.EncryptionUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.UUID;
 
 /**
- * Created with IntelliJ IDEA.
+ *  todo 改进 复用一个User对象 避免重复new；
  * User: krny
  * Date: 2017/2/22 0022
  * Time: 22:26
@@ -23,17 +24,18 @@ import java.util.UUID;
  */
 
 @Service
-public class UserLoginAndRegistImpl implements UserLoginAndRegist {
+public class LoginAndRegistImpl implements LoginAndRegist {
 
     @Autowired
     private UserMapper userMapper;
 
-    public void addUser(User user) throws UsernnameExistException {
+    public void addUser(User user) throws UserNameExistException {
         User u = userMapper.selectByPrimaryKey(user.getUsername());
         if (u != null) {
-            throw new UsernnameExistException("用户名重复");
+            throw new UserNameExistException("用户名重复");
         }
-        user.setPassword(EncryptionUtils.parseMD5(user.getPassword()));
+
+        user = EncryptionUtils.parseUser(user, user.getPassword());
         userMapper.insertSelective(user);
     }
 
@@ -41,8 +43,8 @@ public class UserLoginAndRegistImpl implements UserLoginAndRegist {
         if (StringUtils.isEmpty(user.getUsername()) || StringUtils.isEmpty(user.getPassword())) {
             return false;
         }
-        String passMD5 = EncryptionUtils.parseMD5(user.getPassword());
-        user.setPassword(passMD5);
+
+        user = EncryptionUtils.parseUser(user, user.getPassword());
         User result = userMapper.login(user);
         if (result == null) {
             return false;
@@ -58,6 +60,13 @@ public class UserLoginAndRegistImpl implements UserLoginAndRegist {
         }
         CookieUtils.setCookie(response, "remember", cookieValue + ":" + result.getUsername());
         return true;
+    }
+
+    public void logout(User user) {
+        User u = new User();
+        u.setToken("no");
+        u.setUsername(user.getUsername());
+        userMapper.updateByPrimaryKeySelective(u);
     }
 
 }

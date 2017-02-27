@@ -15,7 +15,9 @@
 <h2>登录</h2>
 
 <hr>
-
+<c:if test="${message == 'error'}">
+    <h1>密码错误</h1>
+</c:if>
 <form action="user/login" name="loginform" method="post" class="form-inline">
     <input type="text" name="username" class="form-control" placeholder="用户名"/>
     <input type="password" name="password" class="form-control" placeholder="密码"/>

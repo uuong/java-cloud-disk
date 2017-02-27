@@ -2,9 +2,11 @@ package sky.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sky.dao.UserMapper;
 import sky.pojo.User;
 import sky.service.inter.UserManager;
+import sky.util.EncryptionUtils;
 
 import java.util.List;
 
@@ -26,5 +28,16 @@ public class UserManagerImpl implements UserManager {
 
     public User select(String username) {
         return null;
+    }
+
+
+    public boolean change(User user, String newpass) {
+        user = EncryptionUtils.parseUser(user);
+        if (userMapper.login(user) != null) {
+            User tempUser = EncryptionUtils.parseUser(user.getUsername(), newpass);
+            userMapper.updateByPrimaryKeySelective(tempUser);
+            return true;
+        }
+        return false;
     }
 }

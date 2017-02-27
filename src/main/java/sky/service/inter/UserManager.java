@@ -16,4 +16,5 @@ public interface UserManager {
 
     User select(String username);
 
+    boolean change(User user, String newpass);
 }

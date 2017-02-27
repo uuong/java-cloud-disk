@@ -2,21 +2,18 @@ package sky.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import sky._const.UserConst;
-import sky.exception.UsernnameExistException;
+import sky.exception.UserNameExistException;
 import sky.pojo.User;
-import sky.service.inter.UserLoginAndRegist;
-import sky.service.inter.UserManager;
+import sky.service.inter.LoginAndRegist;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,12 +24,10 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("user")
-public class LoginAndRegis {
-    @Autowired
-    private UserLoginAndRegist loginAndRegist;
+public class LoginControll {
 
     @Autowired
-    private UserManager userManager;
+    private LoginAndRegist loginAndRegist;
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public String userLoginGet() {
@@ -45,17 +40,18 @@ public class LoginAndRegis {
         HttpSession session = request.getSession();
 
         if (loginAndRegist.userLogin(user, remember, response)) {
+
+            //保存session
+            request.getSession().setAttribute(UserConst.USER_SESSION, user);
+
             //回调地址
             String callback = (String) session.getAttribute("callback");
             session.removeAttribute("callback");
             System.out.println(callback);
-            //保存session
-            request.getSession().setAttribute(UserConst.USER_SESSION, user);
-
-
+// TODO: 2017/2/27 0027 可能会有问题
             return "redirect:/user";
         }
-        request.getSession().setAttribute("message", "帐号密码错误");
+        request.getSession().setAttribute("message", "error");
         return "login";
     }
 
@@ -63,12 +59,11 @@ public class LoginAndRegis {
     public void userLoginAjax(User user, HttpServletRequest request, HttpServletResponse response,
                               @RequestParam(name = "remember", required = false) boolean remember)
             throws IOException {
-        System.out.println(user + " " + remember);
+
         response.setContentType("text/plain;charset=UTF-8");
         if (loginAndRegist.userLogin(user, remember, response)) {
-//            保存session cookies
+//            保存session
             request.getSession().setAttribute(UserConst.USER_SESSION, user);
-
             response.getWriter().write("success");
         } else {
             response.getWriter().write("帐号密码错误");
@@ -79,26 +74,16 @@ public class LoginAndRegis {
     public String register(User user, HttpServletRequest request, HttpServletResponse response) {
         try {
             loginAndRegist.addUser(user);
-        } catch (UsernnameExistException e) {
+        } catch (UserNameExistException e) {
             return "login";
         }
         return "index";
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String userIndex(Model model, HttpServletRequest request) {
-        User user = (User) request.getSession().getAttribute(UserConst.USER_SESSION);
-        if ("admin".equals(user.getUsername())) {
-            List<User> users = userManager.query();
-            model.addAttribute("users", users);
-            return "user";
-        }
-        model.addAttribute("message", "你没有权限");
-        return "user";
-    }
-
     @RequestMapping("logout")
     public String logout(HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute(UserConst.USER_SESSION);
+        loginAndRegist.logout(user);
         request.getSession().removeAttribute(UserConst.USER_SESSION);
         return "redirect:/";
     }
