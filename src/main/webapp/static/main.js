@@ -1,109 +1,66 @@
-function login() {
-    var ret = chkUsername();
-    var retpass = chkpass();
+function a_login() {
+
+    var inputName = document.getElementById('username');
+    var input_pwd = document.getElementById('password');
+    var md5_pwd = document.getElementById('md5-password');
+    md5_pwd.value = sha256(input_pwd.value + "$%`");
     var reme = document.getElementById("remember-me").checked;
 
-    if (ret === 1 && retpass === 1) {
-        $.ajax({
-            type: "POST",
-            url: "user/login/ajax", //访问路径
-            data: {username: $("#name").val(), password: $("#pass").val(), remember: reme}, //参数
-            success: function (msg) {
-                if (msg == 'success') {
-                    $("#logintable").hide();
-                } else {
-                    $("#div_uname_err_info").show();
-                    $("#div_uname_err_info").html("帐号或者密码错误");
-                }
-            },
-            error: function (msg) {
-                alert("程序出错 请联系管理员");
+
+    $.ajax({
+        type: "POST",
+        url: "user/login/index",
+        data: {username: inputName.value, password: md5_pwd.value, remember: reme},
+        success: function (msg) {
+            if (msg == 'success') {
+                $("#div_uname_err_info").hide();
+            } else {
+                $("#div_uname_err_info").show();
+                $("#div_uname_err_info").html("帐号密码错误");
             }
-        });
-    }
+        },
+//                    error: function (msg) {
+//                        alert("程序出错 请联系管理员");
+//                    }
+    });
 
 }
-function chkUsername() {
-    var username = $.trim($("#name").val());
-    if (username === "") {
-        return 0;
-    } else if (username.length < 4 || username.length > 18) {
-        //合法长度为6-18个字符
-        return -1;
-    } else if (!/^\w+$/.test(username)) {
-        //用户名只能包含_,英文字母，数字
-        return -2;
+;
+
+function checkPass() {
+    var input_pwd = document.getElementById('password');
+    if (input_pwd.value.length < 5 || input_pwd.value.length > 20) {
+        $("#div_uname_err_info").show();
+        $("#div_uname_err_info").html("密码长度不对");
+        return false;
+    } else {
+        $("#div_uname_err_info").hide();
+        return true;
     }
-    return 1;
 }
-function chkpass() {
-    var username = $.trim($("#pass").val());
-    if (username === "") {
-        return 0;
-    } else if (username.length < 5 || username.length > 18) {
-        //合法长度为6-18个字符
-        return -1;
+function checkUser() {
+    var nameReg = /^[0-9a-zA-Z]{3,10}$/;
+    var inputName = document.getElementById('username');
+
+    if (!nameReg.test(inputName.value)) {
+        $("#div_uname_err_info").show();
+        $("#div_uname_err_info").html("用户名不存在");
+        return false;
     }
-    return 1;
+    $.ajax({
+        type: "POST",
+        url: "user/login/ajax/name", //访问路径
+        data: {username: $("#username").val()}, //参数
+        success: function (msg) {
+            if (msg == 'success') {
+                $("#div_uname_err_info").hide();
+                return true;
+            } else {
+                $("#div_uname_err_info").show();
+                $("#div_uname_err_info").html("用户名不存在");
+                return false;
+            }
+        },
+
+    });
 }
-/** ----------- 用户名输入框事件 ----------- */
-$(document).ready(function () {
-    //当文本框失去焦点时
-    $("#name").bind("blur", function () {
-        var ret = chkUsername();
-        if (ret == 1) {
-            $("#div_uname_err_info").hide();
-        }
-        else {
-            $("#div_uname_err_info").show();
-            if (ret == 0) {
-                $("#div_uname_err_info").html("用户名不能为空");
-            } else if (ret == -1) {
-                $("#div_uname_err_info").html("合法长度为5-18个字符");
-            }
-            else if (ret == -2) {
-                $("#div_uname_err_info").html("用户名只能包含_,英文字母,数字 ");
-            }
-        }
-        return false;
-    });
-
-    $("#pass").bind("blur", function () {
-        var ret = chkpass();
-        if (ret == 0) {
-            $("#div_mm").html("密码不能为空");
-        } else if (ret == -1) {
-            $("#div_mm").html("合法长度为5-18个字符");
-        }
-        return false;
-    });
-
-    $("#rname").bind("blur", function () {
-        var ret = chkUsername();
-        if (ret == 1) {
-            $("#div_uname_err_info").hide();
-        }
-        else {
-            $("#div_uname_err_info").show();
-            if (ret == 0) {
-                $("#div_uname_err_info").html("用户名不能为空");
-            } else if (ret == -1) {
-                $("#div_uname_err_info").html("合法长度为5-18个字符");
-            }
-            else if (ret == -2) {
-                $("#div_uname_err_info").html("用户名只能包含_,英文字母,数字 ");
-            }
-        }
-        return false;
-    });
-
-    $("#rpass").bind("blur", function () {
-        var ret = chkpass();
-        if (ret == 0) {
-            $("#div_mm").html("密码不能为空");
-        } else if (ret == -1) {
-            $("#div_mm").html("合法长度为5-18个字符");
-        }
-        return false;
-    });
-});

@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import sky._const.UserConst;
-import sky.dao.UserMapper;
 import sky.pojo.User;
+import sky.service.inter.UserService;
 import sky.util.CookieUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +22,7 @@ import java.util.Date;
  */
 public class SessionInterceptor implements HandlerInterceptor {
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
     /**
      * 过滤掉没有登录的
@@ -57,7 +57,7 @@ public class SessionInterceptor implements HandlerInterceptor {
             return false;
         }
 
-        User dataUser = userMapper.selectByPrimaryKey(cookies[1]);
+        User dataUser = userService.select(cookies[1]);
         if (dataUser == null || dataUser.getToken() == null || "no".equals(dataUser.getToken())) {
             response.sendRedirect("user/login");
             return false;

@@ -2,11 +2,9 @@ package sky.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import sky.dao.UserMapper;
 import sky.pojo.User;
-import sky.service.inter.UserManager;
-import sky.util.EncryptionUtils;
+import sky.service.inter.UserService;
 
 import java.util.List;
 
@@ -18,7 +16,7 @@ import java.util.List;
  * To change this template use FileMode | Settings | FileMode Templates.
  */
 @Service
-public class UserManagerImpl implements UserManager {
+public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
@@ -27,14 +25,14 @@ public class UserManagerImpl implements UserManager {
     }
 
     public User select(String username) {
-        return null;
+        return userMapper.selectByPrimaryKey(username);
     }
 
 
     public boolean change(User user, String newpass) {
-        user = EncryptionUtils.parseUser(user);
+        //user = EncryptionUtils.parseUser(user);
         if (userMapper.login(user) != null) {
-            User tempUser = EncryptionUtils.parseUser(user.getUsername(), newpass);
+            User tempUser = new User(user.getUsername(), newpass, null, null);
             userMapper.updateByPrimaryKeySelective(tempUser);
             return true;
         }

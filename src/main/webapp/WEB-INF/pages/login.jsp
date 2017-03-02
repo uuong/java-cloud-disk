@@ -18,11 +18,23 @@
 <c:if test="${message == 'error'}">
     <h1>密码错误</h1>
 </c:if>
-<form action="user/login" name="loginform" method="post" class="form-inline">
-    <input type="text" name="username" class="form-control" placeholder="用户名"/>
-    <input type="password" name="password" class="form-control" placeholder="密码"/>
-    <input name="remember" type="checkbox" value="true"/>30天内自动登录
-    <button type="submit" class="btn btn-default">登录</button>
+<form method="post" class="form-inline">
+    <table>
+        <tr><input type="text" name="username" class="form-control" placeholder="用户名" onblur="checkUser()"
+                   id="username"/>
+            <div id="div_uname_err_info" class="name-pop"></div>
+        </tr>
+        <tr><input type="password" class="form-control" placeholder="密码" onblur="checkPass()" id="password"/>
+            <div id="div_mm" class="name-pop"></div>
+            <input type="hidden" id="md5-password" name="password">
+        </tr>
+        <tr>
+            <td><input name="remember" type="checkbox" id="remember-me">30天内自动登录</td>
+            <td>
+                <button onclick="a_login()">提交</button>
+            </td>
+        </tr>
+    </table>
 </form>
 
 

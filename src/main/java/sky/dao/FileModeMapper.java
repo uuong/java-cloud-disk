@@ -1,5 +1,6 @@
 package sky.dao;
 
+import org.apache.ibatis.annotations.Param;
 import sky.pojo.FileMode;
 
 import java.util.List;
@@ -17,4 +18,14 @@ public interface FileModeMapper {
     List<FileMode> queryByType(FileMode fileMode);
 
     int insert(FileMode fileMode);
+
+    List<FileMode> queryByPid(String username, Integer pid);
+
+    List<FileMode> PagedResult(@Param("fileName") String fileName, Integer pageNumber, Integer pageSize);
+
+    /**
+     * @param fileName 为空==查询所有
+     * @return
+     */
+    List<FileMode> queryPublicByFileName(@Param("fileName") String fileName);
 }

@@ -1,13 +1,15 @@
 package sky.util;
 
-import java.io.File;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
  * User: krny
  * Date: 2017/2/24 0024
- * Time: 22:35
+ * Time: 22.js:35
  * To change this template use FileMode | Settings | FileMode Templates.
  */
 public class TypeUtils {

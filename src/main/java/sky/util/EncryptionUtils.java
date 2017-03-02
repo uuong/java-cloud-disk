@@ -33,7 +33,7 @@ public class EncryptionUtils {
         return user;
     }
     public static String sha256Hex(String data) {
-        return DigestUtils.sha256Hex(data);
+        return DigestUtils.sha256Hex(data + "$%`");
     }
 
     public static String parseMD5(String data) {

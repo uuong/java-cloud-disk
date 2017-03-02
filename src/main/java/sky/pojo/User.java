@@ -53,14 +53,4 @@ public class User {
     public void setToken(String token) {
         this.token = token == null ? null : token.trim();
     }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", regisTime=" + regisTime +
-                ", token='" + token + '\'' +
-                '}';
-    }
 }

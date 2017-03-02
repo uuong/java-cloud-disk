@@ -18,8 +18,8 @@ import java.util.UUID;
 /**
  *  todo 改进 复用一个User对象 避免重复new；
  * User: krny
- * Date: 2017/2/22 0022
- * Time: 22:26
+ * Date: 2017/2/22.js 0022
+ * Time: 22.js:26
  * To change this template use FileMode | Settings | FileMode Templates.
  */
 
@@ -35,7 +35,7 @@ public class LoginAndRegistImpl implements LoginAndRegist {
             throw new UserNameExistException("用户名重复");
         }
 
-        user = EncryptionUtils.parseUser(user, user.getPassword());
+        //user = EncryptionUtils.parseUser(user, user.getPassword());
         userMapper.insertSelective(user);
     }
 
@@ -44,13 +44,12 @@ public class LoginAndRegistImpl implements LoginAndRegist {
             return false;
         }
 
-        user = EncryptionUtils.parseUser(user, user.getPassword());
+        //user = EncryptionUtils.parseUser(user, user.getPassword());
         User result = userMapper.login(user);
         if (result == null) {
             return false;
         }
-        String uuid = UUID.randomUUID().toString();
-        String cookieValue = EncryptionUtils.parseMD5(uuid);
+        String cookieValue = UUID.randomUUID().toString();
         if (remember) {
             Long currentTime = new Date().getTime() + 60 * 60 * 24 * 7;
             String toKen = cookieValue + ":" + currentTime + ":" + result.getPassword();

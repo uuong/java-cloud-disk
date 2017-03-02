@@ -7,24 +7,30 @@ public class FileMode {
 
     private String username;
 
-    private String filename;
+    private Integer pid;
 
-    private String filetype;
+    private String fileName;
 
-    private String filesize;
+    private String fileType;
 
-    private String filepath;
+    private Integer fileSize;
 
-    private Date uploadtime;
+    private Date uploadTime;
 
-    public FileMode(Integer id, String username, String filename, String filetype, String filesize, String filepath, Date uploadtime) {
+    private Integer isDir;
+
+    private Integer isPublic;
+
+    public FileMode(Integer id, String username, Integer pid, String fileName, String fileType, Integer fileSize, Date uploadTime, Integer isDir, Integer isPublic) {
         this.id = id;
         this.username = username;
-        this.filename = filename;
-        this.filetype = filetype;
-        this.filesize = filesize;
-        this.filepath = filepath;
-        this.uploadtime = uploadtime;
+        this.pid = pid;
+        this.fileName = fileName;
+        this.fileType = fileType;
+        this.fileSize = fileSize;
+        this.uploadTime = uploadTime;
+        this.isDir = isDir;
+        this.isPublic = isPublic;
     }
 
     public FileMode() {
@@ -47,43 +53,59 @@ public class FileMode {
         this.username = username == null ? null : username.trim();
     }
 
-    public String getFilename() {
-        return filename;
+    public Integer getPid() {
+        return pid;
     }
 
-    public void setFilename(String filename) {
-        this.filename = filename == null ? null : filename.trim();
+    public void setPid(Integer pid) {
+        this.pid = pid;
     }
 
-    public String getFiletype() {
-        return filetype;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setFiletype(String filetype) {
-        this.filetype = filetype == null ? null : filetype.trim();
+    public void setFileName(String fileName) {
+        this.fileName = fileName == null ? null : fileName.trim();
     }
 
-    public String getFilesize() {
-        return filesize;
+    public String getFileType() {
+        return fileType;
     }
 
-    public void setFilesize(String filesize) {
-        this.filesize = filesize == null ? null : filesize.trim();
+    public void setFileType(String fileType) {
+        this.fileType = fileType == null ? null : fileType.trim();
     }
 
-    public String getFilepath() {
-        return filepath;
+    public Integer getFileSize() {
+        return fileSize;
     }
 
-    public void setFilepath(String filepath) {
-        this.filepath = filepath == null ? null : filepath.trim();
+    public void setFileSize(Integer fileSize) {
+        this.fileSize = fileSize;
     }
 
-    public Date getUploadtime() {
-        return uploadtime;
+    public Date getUploadTime() {
+        return uploadTime;
     }
 
-    public void setUploadtime(Date uploadtime) {
-        this.uploadtime = uploadtime;
+    public void setUploadTime(Date uploadTime) {
+        this.uploadTime = uploadTime;
+    }
+
+    public Integer getIsDir() {
+        return isDir;
+    }
+
+    public void setIsDir(Integer isDir) {
+        this.isDir = isDir;
+    }
+
+    public Integer getIsPublic() {
+        return isPublic;
+    }
+
+    public void setIsPublic(Integer isPublic) {
+        this.isPublic = isPublic;
     }
 }

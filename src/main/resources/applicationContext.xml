@@ -39,12 +39,30 @@
         <!-- 配置监控统计拦截的filters，去掉后监控界面sql无法统计 -->
         <property name="filters" value="stat"/>
     </bean>
+
     <!--spring和mybatis完美整合-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="mapperLocations" value="classpath:mapping/map/*.xml"/>
-        <!--<property name="configLocation" value="classpath:mybatis-config.xml"/>-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <!--<property name="plugins">-->
+        <!--<array>-->
+        <!--<bean class="com.github.pagehelper.PageInterceptor">-->
+        <!--&lt;!&ndash; 这里的几个配置主要演示如何使用，如果不理解，一定要去掉下面的配置 &ndash;&gt;-->
+        <!--<property name="properties">-->
+        <!--<value>-->
+        <!--helperDialect=mysql-->
+        <!--reasonable=true-->
+        <!--supportMethodsArguments=true-->
+        <!--params=count=countSql-->
+        <!--autoRuntimeDialect=true-->
+        <!--</value>-->
+        <!--</property>-->
+        <!--</bean>-->
+        <!--</array>-->
+        <!--</property>-->
     </bean>
+
     <!--DAO接口所在包名，spring会自动查找其下的类-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="sky.dao"/>

@@ -8,13 +8,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <table class="table table-striped  table-hover">
-
-    <tr>
-        <th width="150">文件名</th>
-        <th width="150">大小</th>
-        <th width="150">类型</th>
-        <th width="150">下载</th>
-    </tr>
     <c:forEach items="${fileModes}" var="fileMode">
         <tr>
             <td>${fileMode.filename}</td>

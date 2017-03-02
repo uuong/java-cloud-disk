@@ -38,7 +38,7 @@
         </javaModelGenerator>
 
         <!-- 生成映射文件的包名和位置  也就是mapp-->
-        <sqlMapGenerator targetPackage="垃圾堆"
+        <sqlMapGenerator targetPackage="zSQL"
                          targetProject="src/main/java/sky/">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>

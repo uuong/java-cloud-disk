@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import sky._const.UserConst;
 import sky.pojo.User;
-import sky.service.inter.UserManager;
+import sky.service.inter.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -24,14 +24,14 @@ import java.util.List;
 public class UserControll {
 
     @Autowired
-    private UserManager userManager;
+    private UserService userService;
 
 
     @RequestMapping(method = RequestMethod.GET)
     public String userIndex(Model model, HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute(UserConst.USER_SESSION);
         if ("admin".equals(user.getUsername())) {
-            List<User> users = userManager.query();
+            List<User> users = userService.query();
             model.addAttribute("users", users);
             return "user";
         }
@@ -49,7 +49,7 @@ public class UserControll {
 
         User user = (User) request.getSession().getAttribute(UserConst.USER_SESSION);
         user.setPassword(oldpass);
-        if (newpass != null && newpass.equals(newpass2) && userManager.change(user, newpass)) {
+        if (newpass != null && newpass.equals(newpass2) && userService.change(user, newpass)) {
             model.addAttribute("message", "ok");
             return "change";
         }
