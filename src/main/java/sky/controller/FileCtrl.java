@@ -67,6 +67,7 @@ public class FileCtrl {
         //fileMode.setFileSize((int) (multipartFile.getSize() / 1024));
         //fileMode.setFileType(fileType);
         //fileMode.setPid(pid);
+        pid = pid != null ? pid : 0;
         FileMode fileMode = new FileMode(null, user.getUsername(), pid
                 , filename, fileType, fileSize, null, 0, 0);
         fileService.insert(fileMode, multipartFile);

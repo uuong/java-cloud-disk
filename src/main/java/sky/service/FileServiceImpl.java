@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import sky.dao.FileModeMapper;
 import sky.pojo.FileMode;
+import sky.pojo.PagedResult;
 import sky.service.inter.FileService;
 
 import javax.servlet.http.HttpServletResponse;
@@ -42,14 +43,14 @@ public class FileServiceImpl implements FileService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     public int insert(FileMode fileMode, MultipartFile multipartFile) {
-// TODO: 2017/3/3 0003 上传前  没有id
+        int i = fileModeMapper.insert(fileMode);
         try {
             File fi = new File(basePath + "/" + fileMode.getId());
             multipartFile.transferTo(fi);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return fileModeMapper.insert(fileMode);
+        return 1;
     }
 
     public List<FileMode> queryByPid(String username, Integer pid) {
@@ -57,20 +58,20 @@ public class FileServiceImpl implements FileService {
     }
 
     public List<FileMode> queryByPublic(String fileName) {
-        fileName = fileName.equals("") ? null : fileName;
+        //fileName = fileName.equals("") ? null : fileName;
         return fileModeMapper.queryPublicByFileName(fileName);
     }
 
-    public List<FileMode> PagedResult(String fileName, Integer pageNumber, Integer pageSize) {
+    public PagedResult<FileMode> queryByPage(String fileName, Integer pageNumber, Integer pageSize) {
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 10 : pageSize;
         PageHelper.startPage(pageNumber, pageSize);
-        fileModeMapper.queryPublicByFileName(null);
-        return null;
+        List<FileMode> files = fileModeMapper.queryPublicByFileName(fileName);
+        return new PagedResult<FileMode>(files);
     }
 
     public String download(Integer id, String name, HttpServletResponse response) {
-
+        // TODO: 2017/3/4 0004 is public
         try {
             OutputStream out = response.getOutputStream();
             response.setContentType("text/html;charset=UTF-8");

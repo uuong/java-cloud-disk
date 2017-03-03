@@ -21,7 +21,7 @@ public interface FileModeMapper {
 
     List<FileMode> queryByPid(String username, Integer pid);
 
-    List<FileMode> PagedResult(@Param("fileName") String fileName, Integer pageNumber, Integer pageSize);
+    //List<FileMode> queryByPage(@Param("fileName") String fileName, Integer pageNumber, Integer pageSize);
 
     /**
      * @param fileName 为空==查询所有

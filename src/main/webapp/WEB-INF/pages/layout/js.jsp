@@ -8,6 +8,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/bootstrap.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/bootstrap-paginator.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/main.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/sha256.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/static/bootstrap-paginator.js"></script>

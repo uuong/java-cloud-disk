@@ -8,4 +8,3 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link href="${pageContext.request.contextPath}/static/bootstrap.min.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/static/main.css" rel="stylesheet">
-

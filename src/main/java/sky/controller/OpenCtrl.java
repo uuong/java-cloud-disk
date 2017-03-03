@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import sky.pojo.FileMode;
+import sky.pojo.PagedResult;
 import sky.service.inter.FileService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,6 +23,7 @@ import java.util.List;
 @Controller
 @RequestMapping("open")
 public class OpenCtrl {
+
     @Autowired
     private FileService fileService;
 
@@ -33,9 +34,8 @@ public class OpenCtrl {
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public List<FileMode> list(Integer pageNumber, Integer pageSize, String fileName) {
-        System.out.println(fileName + "-----------------------------------");
-        List<FileMode> files = fileService.queryByPublic(fileName);
+    public PagedResult<FileMode> list(Integer pageNumber, Integer pageSize, String fileName) {
+        PagedResult<FileMode> files = fileService.queryByPage(fileName, pageNumber, pageSize);
         System.out.println(files);
         return files;
     }
@@ -43,7 +43,6 @@ public class OpenCtrl {
     @RequestMapping("/down{id}&{name}")
     public String download(@PathVariable Integer id, @PathVariable String name, HttpServletResponse response) throws IOException {
         System.out.println(id + name);
-
         return fileService.download(id, name, response);
     }
 }
