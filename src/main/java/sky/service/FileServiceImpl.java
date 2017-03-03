@@ -71,7 +71,7 @@ public class FileServiceImpl implements FileService {
     }
 
     public String download(Integer id, String name, HttpServletResponse response) {
-        // TODO: 2017/3/4 0004 is public；
+        // TODO: 2017/3/4 0004 is public
         try {
             OutputStream out = response.getOutputStream();
             response.setContentType("text/html;charset=UTF-8");
