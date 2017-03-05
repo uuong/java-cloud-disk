@@ -2,6 +2,7 @@ package sky.dao;
 
 import org.apache.ibatis.annotations.Param;
 import sky.pojo.FileMode;
+import sky.pojo.PageUtil;
 
 import java.util.List;
 
@@ -28,4 +29,6 @@ public interface FileModeMapper {
      * @return
      */
     List<FileMode> queryPublicByFileName(@Param("fileName") String fileName);
+
+    List<FileMode> queryPage(PageUtil pageUtil);
 }

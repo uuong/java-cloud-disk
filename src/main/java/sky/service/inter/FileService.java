@@ -2,6 +2,7 @@ package sky.service.inter;
 
 import org.springframework.web.multipart.MultipartFile;
 import sky.pojo.FileMode;
+import sky.pojo.PageUtil;
 import sky.pojo.PagedResult;
 
 import javax.servlet.http.HttpServletResponse;
@@ -32,7 +33,7 @@ public interface FileService {
 
     List<FileMode> queryByPublic(String fileName);
 
-    PagedResult<FileMode> queryByPage(String fileName, Integer pageNumber, Integer pageSize);
+    PagedResult<FileMode> queryByPage(PageUtil pageUtil);
 
     /**
      * @param id       文件唯一id

@@ -5,8 +5,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import sky.pojo.FileMode;
-import sky.pojo.PagedResult;
 import sky.service.inter.FileService;
 
 /**
@@ -24,7 +22,7 @@ public class queryByPagetest {
 
     @Test
     public void queryByPage() {
-        PagedResult<FileMode> pagedResult = fileService.queryByPage(null, 1, 10);//null表示查全部
-        System.out.println("查找结果" + pagedResult);
+        //PagedResult<FileMode> pagedResult = fileService.queryByPage(null, 1, 10);//null表示查全部
+        //System.out.println("查找结果" + pagedResult);
     }
 }

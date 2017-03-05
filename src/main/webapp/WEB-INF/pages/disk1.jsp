@@ -29,11 +29,6 @@
             margin-top: 10px;
         }
 
-        #tableResult {
-            margin-right: auto;
-            margin-left: auto;
-            width: 600px;
-        }
 
         /*body {text-align: center;}*/
         #bottomTab {
@@ -58,11 +53,11 @@
 <div class="container-fluid">
     <div class="row">
         <%@ include file="./layout/nav.jsp" %>
-        <div class="span12">
+
 
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <form action="disk/upload" method="post" enctype="multipart/form-data">
 
                             <input type="file" name="file"/><br/>
@@ -70,13 +65,13 @@
                             <input type="submit"/>
                         </form>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-7">
                         <div id="queryDiv">
                             <input id="textInput" type="text" placeholder="请输入用户名">
                             <button id="queryButton" class="btn btn-primary" type="button">查询</button>
                         </div>
                         <form id="form1">
-                            <table class="table table-condensed" id='tableResult'>
+                            <table class="table table-striped" id='tableResult'>
                                 <caption>查询文件结果</caption>
                                 <thead>
                                 <tr>
@@ -84,9 +79,38 @@
                                     <th>用户名</th>
                                     <th>文件大小</th>
                                     <th>上传时间</th>
+                                    <th>下载</th>
                                 </tr>
                                 </thead>
                                 <tbody id="tableBody">
+                                <tr>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                </tr>
                                 </tbody>
 
                             </table>
@@ -103,6 +127,33 @@
                             <div class="col-md-2">
                             </div>
                         </div>
+                        <table class="table table-striped ">
+                            <tr>
+                                <th width="150">user</th>
+                                <th width="350">pass</th>
+                                <th width="150">time</th>
+                                <th width="150">dai</th>
+                            </tr>
+
+                            <tr>
+
+                                <td>1</td>
+
+
+                                <td>2</td>
+                                <td>3</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+
+                                <td>1</td>
+
+
+                                <td>2</td>
+                                <td>3</td>
+                                <td>2</td>
+                            </tr>
+                        </table>
                     </div>
                     <div class="col-md-2">
                         登录
@@ -136,7 +187,7 @@
 
             </div>
 
-        </div>
+
     </div>
     <script type='text/javascript'>
         var PAGESIZE = 10;
@@ -217,6 +268,8 @@
                                 $("#tableBody").append('<td><a href="open/down' + this.id + "&" + this.username + '">下载</a></td>');
                                 $("#tableBody").append('</tr>');
                             });
+                            $('ul').listview('refresh');
+                            $("#tableResult").bootstrapPaginator();
                         } else {
                             $("#tableBody").append('<tr><th colspan ="4">查询无数据</th></tr>');
                         }

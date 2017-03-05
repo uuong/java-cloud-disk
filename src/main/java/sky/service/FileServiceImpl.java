@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import sky.dao.FileModeMapper;
 import sky.pojo.FileMode;
+import sky.pojo.PageUtil;
 import sky.pojo.PagedResult;
 import sky.service.inter.FileService;
 
@@ -62,11 +63,9 @@ public class FileServiceImpl implements FileService {
         return fileModeMapper.queryPublicByFileName(fileName);
     }
 
-    public PagedResult<FileMode> queryByPage(String fileName, Integer pageNumber, Integer pageSize) {
-        pageNumber = pageNumber == null ? 1 : pageNumber;
-        pageSize = pageSize == null ? 10 : pageSize;
-        PageHelper.startPage(pageNumber, pageSize);
-        List<FileMode> files = fileModeMapper.queryPublicByFileName(fileName);
+    public PagedResult<FileMode> queryByPage(PageUtil pageUtil) {
+        PageHelper.startPage(pageUtil.getOffset() / pageUtil.getLimit() + 1, pageUtil.getLimit());
+        List<FileMode> files = fileModeMapper.queryPage(pageUtil);
         return new PagedResult<FileMode>(files);
     }
 

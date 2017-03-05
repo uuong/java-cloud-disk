@@ -2,11 +2,9 @@ package sky.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import sky.pojo.FileMode;
+import sky.pojo.PageUtil;
 import sky.pojo.PagedResult;
 import sky.service.inter.FileService;
 
@@ -29,14 +27,15 @@ public class OpenCtrl {
 
     @RequestMapping()
     public String getIndex() {
-        return "disk1";
+        return "disk";
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public PagedResult<FileMode> list(Integer pageNumber, Integer pageSize, String fileName) {
-        PagedResult<FileMode> files = fileService.queryByPage(fileName, pageNumber, pageSize);
-        System.out.println(files);
+    public PagedResult<FileMode> list(@RequestBody PageUtil pageUtil) {
+        System.out.println(pageUtil);
+        PagedResult<FileMode> files = fileService.queryByPage(pageUtil);
+
         return files;
     }
 
