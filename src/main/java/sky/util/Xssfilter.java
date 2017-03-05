@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
- * Created with IntelliJ IDEA.
+ * xss sql 注入防范
  * User: krny
  * Date: 2017/2/26 0026
  * Time: 15:40

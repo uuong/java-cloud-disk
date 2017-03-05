@@ -8,9 +8,7 @@ import sky.exception.UserNameExistException;
 import sky.pojo.User;
 import sky.service.inter.LoginAndRegist;
 import sky.util.CookieUtils;
-import sky.util.EncryptionUtils;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.UUID;
@@ -26,6 +24,7 @@ import java.util.UUID;
 @Service
 public class LoginAndRegistImpl implements LoginAndRegist {
 
+    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
     private UserMapper userMapper;
 

@@ -26,7 +26,9 @@ import java.util.List;
  */
 @Service
 public class FileServiceImpl implements FileService {
+    // TODO: 2017/3/6 0006 抽出到配置文件
     private String basePath = "e:/ddd/";
+
     @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
     private FileModeMapper fileModeMapper;

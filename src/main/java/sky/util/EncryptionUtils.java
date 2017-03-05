@@ -7,7 +7,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Created with IntelliJ IDEA.
+ * 加密解密
  * User: krny
  * Date: 2017/2/27 0027
  * Time: 12:56

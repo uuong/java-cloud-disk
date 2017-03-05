@@ -17,6 +17,8 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl implements UserService {
+
+    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
     private UserMapper userMapper;
 

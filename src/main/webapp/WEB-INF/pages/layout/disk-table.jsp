@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
-  Created by IntelliJ IDEA.
+  第一版用的 现在不用了
   User: Administrator
   Date: 2017/2/24 0024
   Time: 23:53

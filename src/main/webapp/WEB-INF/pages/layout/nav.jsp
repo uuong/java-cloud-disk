@@ -29,7 +29,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <c:if test="${sessionScope.SESSION != null}">
                     <li><a href="user/login/logout">退出</a></li>
-                </c:if>
+
 
 
                 <li class="dropdown">
@@ -37,9 +37,10 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">个人中心 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">修改密码</a></li>
+                        <li><a href="user/change-pass">修改密码</a></li>
                     </ul>
                 </li>
+                </c:if>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
