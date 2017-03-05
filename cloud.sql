@@ -1,46 +1,24 @@
-CREATE DATABASE  IF NOT EXISTS `cloud` 
-USE `cloud`;
--- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
---
--- Host: localhost    Database: cloud
--- ------------------------------------------------------
--- Server version	5.7.17-log
-
-
-
---
--- Table structure for table `files`
---
-
-DROP TABLE IF EXISTS `files`;
-CREATE TABLE `files` (
+DROP TABLE IF EXISTS `filemodes`;
+CREATE TABLE `filemodes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userName` varchar(45) NOT NULL,
-  `fileName` varchar(45) NOT NULL,
-  `fileType` varchar(45) NOT NULL,
-  `fileSize` varchar(45) NOT NULL,
-  `filePath` varchar(45) NOT NULL,
-  `uploadTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `username` varchar(45) NOT NULL,
+  `pid` int(11) NOT NULL,
+  `file_name` varchar(45) NOT NULL,
+  `file_type` varchar(45) NOT NULL,
+  `file_size` int(20) NOT NULL,
+  `upload_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_dir` int(1) NOT NULL DEFAULT '0',
+  `is_public` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `files`
---
-
---
--- Table structure for table `users`
---
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `username` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
+  `password` varchar(64) NOT NULL,
   `regis_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `token` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`username`),
   UNIQUE KEY `username_UNIQUE` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `users`
---
