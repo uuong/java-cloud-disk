@@ -25,7 +25,12 @@
         where username = #{param1}
         AND pid = #{ param2}
     </select>
-
+    <select id="queryById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from filemodes
+        where id = #{id}
+    </select>
     <!--当前用户分类文件-->
     <select id="queryByType" parameterType="sky.pojo.FileMode" resultMap="BaseResultMap">
         select

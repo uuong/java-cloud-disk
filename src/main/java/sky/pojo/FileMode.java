@@ -18,7 +18,10 @@ public class FileMode {
     private Date uploadTime;
 
     private Integer isDir;
-
+    /**
+     * 0 false
+     * 1 true
+     */
     private Integer isPublic;
 
     public FileMode(Integer id, String username, Integer pid, String fileName, String fileType, Integer fileSize, Date uploadTime, Integer isDir, Integer isPublic) {

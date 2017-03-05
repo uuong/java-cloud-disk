@@ -34,18 +34,19 @@ public class FileCtrl {
 
     @RequestMapping()
     public ModelAndView getIndex(HttpSession session) {
-        ModelAndView mav = new ModelAndView("disk1");
+        ModelAndView mav = new ModelAndView("disk");
         User user = (User) session.getAttribute(UserConst.USER_SESSION);
         List<FileMode> files = fileService.queryByPid(user.getUsername(), 0);
         mav.addObject("files", files);
         return mav;
     }
 
-    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    @RequestMapping(value = "list", method = RequestMethod.POST)
     @ResponseBody
-    public List<FileMode> list(Integer pageNumber, Integer pageSize, String fileName) {
+    public List<FileMode> list(HttpSession session, Integer pageNumber, Integer pageSize, String fileName) {
         System.out.println(fileName + "-----------------------------------");
-        List<FileMode> files = fileService.queryByPublic(fileName);
+        User user = (User) session.getAttribute(UserConst.USER_SESSION);
+        List<FileMode> files = fileService.queryByPid(user.getUsername(), 0);
         System.out.println(files);
         return files;
 
@@ -55,18 +56,9 @@ public class FileCtrl {
     public String upload(HttpServletRequest request, @RequestParam("file") MultipartFile multipartFile, Integer pid) {
 
         User user = (User) request.getSession().getAttribute(UserConst.USER_SESSION);
-
-        //
         String filename = multipartFile.getOriginalFilename();
         String fileType = TypeUtils.typ(multipartFile.getContentType());
         int fileSize = (int) (multipartFile.getSize() / 1024);
-        //封装file
-        //FileMode fileMode = new FileMode();
-        //fileMode.setUsername(user.getUsername());
-        //fileMode.setFileName(filename);
-        //fileMode.setFileSize((int) (multipartFile.getSize() / 1024));
-        //fileMode.setFileType(fileType);
-        //fileMode.setPid(pid);
         pid = pid != null ? pid : 0;
         FileMode fileMode = new FileMode(null, user.getUsername(), pid
                 , filename, fileType, fileSize, null, 0, 0);

@@ -106,7 +106,7 @@ public class LoginControll {
         loginAndRegist.logout(user);
         session.invalidate();
         session.removeAttribute(UserConst.USER_SESSION);
-        return "redirect:/";
+        return "redirect:/in";
     }
 
 

@@ -22,13 +22,19 @@ public interface FileModeMapper {
 
     List<FileMode> queryByPid(String username, Integer pid);
 
-    //List<FileMode> queryByPage(@Param("fileName") String fileName, Integer pageNumber, Integer pageSize);
-
     /**
      * @param fileName 为空==查询所有
      * @return
      */
     List<FileMode> queryPublicByFileName(@Param("fileName") String fileName);
 
+    /**
+     * 分页查询
+     *
+     * @param pageUtil
+     * @return
+     */
     List<FileMode> queryPage(PageUtil pageUtil);
+
+    FileMode queryById(Integer id);
 }

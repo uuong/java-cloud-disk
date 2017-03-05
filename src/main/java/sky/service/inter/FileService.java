@@ -41,5 +41,5 @@ public interface FileService {
      * @param response
      * @return 下载链接
      */
-    String download(Integer id, String name, HttpServletResponse response);
+    void download(Integer id, HttpServletResponse response);
 }

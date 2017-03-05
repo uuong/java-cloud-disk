@@ -28,7 +28,7 @@
             <%--</form>--%>
             <ul class="nav navbar-nav navbar-right">
                 <c:if test="${sessionScope.SESSION != null}">
-                    <li><a href="user/logout">退出</a></li>
+                    <li><a href="user/login/logout">退出</a></li>
                 </c:if>
 
 

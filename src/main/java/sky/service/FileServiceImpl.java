@@ -69,15 +69,21 @@ public class FileServiceImpl implements FileService {
         return new PagedResult<FileMode>(files);
     }
 
-    public String download(Integer id, String name, HttpServletResponse response) {
-        // TODO: 2017/3/4 0004 is public
+    public void download(Integer id, HttpServletResponse response) {
         try {
+            FileMode fileMode = fileModeMapper.queryById(id);
+            if (fileMode == null || fileMode.getIsPublic() == 0) {
+                return;
+            }
+            String name = fileMode.getFileName();
+            response.setHeader("Content-Disposition", "attachment;filename="
+                    + URLEncoder.encode(name, "UTF-8"));
             OutputStream out = response.getOutputStream();
             response.setContentType("text/html;charset=UTF-8");
             File file = new File(basePath + "/" + id);
             InputStream in = new FileInputStream(file);
-            response.setHeader("Content-Disposition", "attachment;filename="
-                    + URLEncoder.encode(name, "UTF-8"));
+
+
             byte b[] = new byte[1024];
             int len;
             while ((len = in.read(b)) != -1) {
@@ -87,6 +93,6 @@ public class FileServiceImpl implements FileService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+
     }
 }

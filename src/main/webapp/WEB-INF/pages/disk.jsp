@@ -96,8 +96,8 @@
                         titleTooltip: 'young for you'
                     },
                     {
-                        field: 'username',
-                        title: '系统名称'
+                        field: 'fileType',
+                        title: '文件类型'
                     },
                     {
                         field: 'fileSize',

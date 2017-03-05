@@ -39,9 +39,8 @@ public class OpenCtrl {
         return files;
     }
 
-    @RequestMapping("/down{id}&{name}")
-    public String download(@PathVariable Integer id, @PathVariable String name, HttpServletResponse response) throws IOException {
-        System.out.println(id + name);
-        return fileService.download(id, name, response);
+    @RequestMapping("/down{id}")
+    public void download(@PathVariable Integer id, HttpServletResponse response) throws IOException {
+        fileService.download(id, response);
     }
 }
