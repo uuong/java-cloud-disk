@@ -31,13 +31,10 @@ public interface FileService {
 
     List<FileMode> queryByPid(String username, Integer pid);
 
-    List<FileMode> queryByPublic(String fileName);
-
     PagedResult<FileMode> queryByPage(PageUtil pageUtil);
-
+    //PagedResult<FileMode> queryPrivateByPage(String username, PageUtil pageUtil);
     /**
      * @param id       文件唯一id
-     * @param name     文件名
      * @param response
      * @return 下载链接
      */

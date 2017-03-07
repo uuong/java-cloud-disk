@@ -16,27 +16,4 @@ public class Index {
         return "index";
     }
 
-
-    //@Autowired
-    //private FileService fud;
-    //
-    //
-    //@RequestMapping("/json")
-    //public ModelAndView show(Model model, @RequestParam("id") String pid, HttpServletResponse response) throws IOException {
-    //    //Map<String, String> map = null;
-    //    //map = new HashMap<String, String>();
-    //    //List<FileMode> fileModes;
-    //    //fileModes = fud.queryByPid("Hello",pid);
-    //    //for (FileMode fileMode : fileModes) {
-    //    //    map.put("username",fileMode.getFilename());
-    //    //    map.put("username",fileMode.getFiletype());
-    //    //    map.put("username",fileMode.getId());
-    //    //    map.put("username",fileMode.getPid());
-    //    //    map.put("username",fileMode.getFilesize());
-    //    //
-    //    //}
-    //    List<FileMode> fileModes = fud.queryByPid("Hello",0);
-    //    model.addAttribute("fileModes", fileModes);
-    //    return new ModelAndView("layout/disk-table");
-    //}
 }

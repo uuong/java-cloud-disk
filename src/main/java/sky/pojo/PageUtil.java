@@ -13,11 +13,21 @@ public class PageUtil {
     private String order;//排序
     private String sort;//排序列名称
     private String search;//搜索内容
+    private String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public PageUtil setUsername(String username) {
+        this.username = username;
+        return this;
+    }
 
     //这里是模糊查询,所以需要对search字段改造下
     public void setSearch(String search) {
         this.search = "%" + search + "%";
-    }//省略get和set方法
+    }
 
     public int getLimit() {
         return limit;
@@ -68,6 +78,7 @@ public class PageUtil {
         sb.append(", order='").append(order).append('\'');
         sb.append(", sort='").append(sort).append('\'');
         sb.append(", search='").append(search).append('\'');
+        sb.append(", username='").append(username).append('\'');
         sb.append('}');
         return sb.toString();
     }

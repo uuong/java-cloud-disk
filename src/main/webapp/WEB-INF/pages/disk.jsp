@@ -48,13 +48,18 @@
     </div>
 </div>
 <script>
-
+    var urlbase = "${url}";
     $(function () {
         var itable = TableInit();
         itable.Init();
     });
     function genderFormatter(value) {
-        return "<a href='open/down" + value + "'>下载</a>";
+        return "<a href='" + urlbase + "/down/" + value + "'><span class='glyphicon glyphicon-download'></span></a>";
+    }
+    function setPulic(value, row) {
+//        var tem = value == 0 ? "否" : "是";
+        return (value == 0 ? "否" : "是")
+        "<a href='" + urlbase + "/change/" + row.id + "'><span class='glyphicon glyphicon-pencil'></span></a>";
     }
     var TableInit = function () {
         var myTableInit = new Object();
@@ -69,7 +74,7 @@
 //        }
         myTableInit.Init = function () {
             $("#myTable").bootstrapTable({
-                url: 'open/list',
+                url: urlbase + "/list",
                 method: 'post',
                 toolbar: '#toobar',//工具列
                 striped: true,//隔行换色
@@ -93,7 +98,7 @@
                     {
                         field: 'fileName',
                         title: '文件名',
-                        titleTooltip: 'young for you'
+                        titleTooltip: ''
                     },
                     {
                         field: 'fileType',
@@ -112,6 +117,10 @@
                     {
                         field: 'uploadTime',
                         title: '更新时间'
+                    }, {
+                        field: 'isPublic',
+                        title: '是否公共',
+                        formatter: setPulic
                     }, {
                         field: 'id',
                         title: "链接",

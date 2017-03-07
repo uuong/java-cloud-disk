@@ -47,10 +47,8 @@ public class LoginControll {
         HttpSession session = request.getSession();
 
         if (loginAndRegist.userLogin(user, remember, response)) {
-
             //保存session
             request.getSession().setAttribute(UserConst.USER_SESSION, user);
-
             //回调地址
             String callback = (String) session.getAttribute("callback");
             session.removeAttribute("callback");
@@ -80,8 +78,6 @@ public class LoginControll {
     @ResponseBody
     public void userNmaeAjax(String username, HttpServletResponse response)
             throws IOException {
-
-        response.setContentType("text/plain;charset=UTF-8");
         if (userService.select(username) != null) {
             response.getWriter().write("success");
         } else {
@@ -94,7 +90,7 @@ public class LoginControll {
         try {
             loginAndRegist.addUser(user);
         } catch (UserNameExistException e) {
-            model.addAttribute("login", "用户名重复");
+            model.addAttribute("login_error", "用户名重复");
             return "login";
         }
         return "index";
@@ -102,10 +98,15 @@ public class LoginControll {
 
     @RequestMapping("logout")
     public String logout(HttpSession session) {
+
         User user = (User) session.getAttribute(UserConst.USER_SESSION);
-        loginAndRegist.logout(user);
-        session.invalidate();
         session.removeAttribute(UserConst.USER_SESSION);
+        session.invalidate();
+        User u = new User();
+        u.setToken("no");
+        u.setUsername(user.getUsername());
+        loginAndRegist.logout(u);
+
         return "redirect:/in";
     }
 

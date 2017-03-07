@@ -31,10 +31,9 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    public boolean change(User user, String newpass) {
-        //user = EncryptionUtils.parseUser(user);
+    public boolean change(User user, String new_pass) {
         if (userMapper.login(user) != null) {
-            User tempUser = new User(user.getUsername(), newpass, null, null);
+            User tempUser = new User(user.getUsername(), new_pass, null, "no");
             userMapper.updateByPrimaryKeySelective(tempUser);
             return true;
         }

@@ -64,15 +64,27 @@
         select
         <include refid="Base_Column_List"/>
         from filemodes
-        where is_public = 1
-        <if test="search != null">
-            and (file_name LIKE #{search} or username like #{search})
+        where
+        <if test="username != null">
+            username = #{username}
+            <if test="search != null">
+                and file_name LIKE #{search}
+            </if>
         </if>
+        <if test="username == null">
+            is_public = 1
+            <if test="search != null">
+                and (file_name LIKE #{search} or username like #{search})
+            </if>
+        </if>
+
+
         <if test="sort != null">
             <!--这里使用$符号-->
             ORDER BY ${sort} ${order}
         </if>
     </select>
+
 
     <!--选择插入 返回主键-->
     <insert id="insert" parameterType="sky.pojo.FileMode" useGeneratedKeys="true" keyProperty="id">

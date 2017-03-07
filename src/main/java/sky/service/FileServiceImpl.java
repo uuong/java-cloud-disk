@@ -46,7 +46,7 @@ public class FileServiceImpl implements FileService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     public int insert(FileMode fileMode, MultipartFile multipartFile) {
-        int i = fileModeMapper.insert(fileMode);
+        fileModeMapper.insert(fileMode);
         try {
             File fi = new File(basePath + "/" + fileMode.getId());
             multipartFile.transferTo(fi);
@@ -60,16 +60,19 @@ public class FileServiceImpl implements FileService {
         return fileModeMapper.queryByPid(username, pid);
     }
 
-    public List<FileMode> queryByPublic(String fileName) {
-        //fileName = fileName.equals("") ? null : fileName;
-        return fileModeMapper.queryPublicByFileName(fileName);
-    }
+
 
     public PagedResult<FileMode> queryByPage(PageUtil pageUtil) {
         PageHelper.startPage(pageUtil.getOffset() / pageUtil.getLimit() + 1, pageUtil.getLimit());
         List<FileMode> files = fileModeMapper.queryPage(pageUtil);
         return new PagedResult<FileMode>(files);
     }
+
+    //public PagedResult<FileMode> queryPrivateByPage(String username, PageUtil pageUtil) {
+    //    PageHelper.startPage(pageUtil.getOffset() / pageUtil.getLimit() + 1, pageUtil.getLimit());
+    //    List<FileMode> files = fileModeMapper.queryPrivatePage(username, pageUtil);
+    //    return new PagedResult<FileMode>(files);
+    //}
 
     public void download(Integer id, HttpServletResponse response) {
         try {

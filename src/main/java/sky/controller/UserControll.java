@@ -35,7 +35,7 @@ public class UserControll {
             model.addAttribute("users", users);
             return "user";
         }
-        model.addAttribute("message", "你没有权限");
+
         return "user";
     }
 

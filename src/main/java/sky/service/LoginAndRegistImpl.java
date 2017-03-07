@@ -42,8 +42,6 @@ public class LoginAndRegistImpl implements LoginAndRegist {
         if (StringUtils.isEmpty(user.getUsername()) || StringUtils.isEmpty(user.getPassword())) {
             return false;
         }
-
-        //user = EncryptionUtils.parseUser(user, user.getPassword());
         User result = userMapper.login(user);
         if (result == null) {
             return false;
@@ -61,10 +59,7 @@ public class LoginAndRegistImpl implements LoginAndRegist {
     }
 
     public void logout(User user) {
-        User u = new User();
-        u.setToken("no");
-        u.setUsername(user.getUsername());
-        userMapper.updateByPrimaryKeySelective(u);
+        userMapper.updateByPrimaryKeySelective(user);
     }
 
 }

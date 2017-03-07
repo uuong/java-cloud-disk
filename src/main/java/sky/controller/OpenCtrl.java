@@ -8,6 +8,7 @@ import sky.pojo.PageUtil;
 import sky.pojo.PagedResult;
 import sky.service.inter.FileService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -26,7 +27,8 @@ public class OpenCtrl {
     private FileService fileService;
 
     @RequestMapping()
-    public String getIndex() {
+    public String getIndex(HttpServletRequest request) {
+        request.setAttribute("url", "open");
         return "disk";
     }
 
@@ -34,12 +36,10 @@ public class OpenCtrl {
     @ResponseBody
     public PagedResult<FileMode> list(@RequestBody PageUtil pageUtil) {
         System.out.println(pageUtil);
-        PagedResult<FileMode> files = fileService.queryByPage(pageUtil);
-
-        return files;
+        return fileService.queryByPage(pageUtil);
     }
 
-    @RequestMapping("/down{id}")
+    @RequestMapping("/down/{id}")
     public void download(@PathVariable Integer id, HttpServletResponse response) throws IOException {
         fileService.download(id, response);
     }
